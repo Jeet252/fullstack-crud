@@ -79,7 +79,7 @@ export default function TableContainer({
                                         <td>{item.id}</td>
                                         <td>{item.name}</td>
                                         <td>{item.category}</td>
-                                        <td className="price-cell">${item.price.toFixed(2)}</td>
+                                        <td className="price-cell">Rs.{item.price.toFixed(2)}</td>
                                         <td>
                                             <button className="btn-edit" onClick={() => startEditing(item)}>Edit</button>
                                             <button className="btn-delete" onClick={() => handleDelete(item.id)}>Delete</button>

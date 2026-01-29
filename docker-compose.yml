@@ -16,7 +16,7 @@ services:
       context: ./frontend
     container_name: react-client
     ports:
-      - "5174:3000"
+      - "5174:80"
     networks:
       - fullstack-net
     depends_on:

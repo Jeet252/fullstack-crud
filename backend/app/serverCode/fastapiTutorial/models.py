@@ -13,9 +13,4 @@ class Product(BaseModel):
         Product._count += 1
 
 products=[
-    Product(name='Asus',price=79999,category='Laptop'),
-    Product(name='Samsung',price=40000,category='Mobile'),
-    Product(name='JBL',price=2000,category='Speaker'),
-    Product(name='Airdrop 201',price=1000,category='Airbud'),
-    Product(name='Knife',price=200,category='Kitchen Ware')
 ]

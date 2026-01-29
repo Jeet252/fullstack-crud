@@ -5,21 +5,19 @@ WORKDIR /app
 
 COPY package*.json ./
 
-RUN npm install
+RUN npm ci
 
 COPY . .
 
 RUN npm run build
 
 # Production stage
-FROM node:22-alpine
+FROM nginx:alpine AS runtime
 
-WORKDIR /app
+WORKDIR /usr/share/nginx/html
 
-RUN npm install -g serve
-ENV PATH="/usr/local/bin:$PATH"
-COPY --from=build /app/dist ./dist
+COPY --from=build /app/dist ./
 
-EXPOSE 3000
+EXPOSE 80
 
-CMD ["serve", "-s", "dist", "-l", "3000"]
+CMD ["nginx", "-g", "daemon off;"]
