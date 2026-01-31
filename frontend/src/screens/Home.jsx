@@ -27,7 +27,7 @@ export default function Home() {
 
         const fetchData = async () => {
             try {
-                const response = await fetch('http://localhost:4000/products');
+                const response = await fetch('/api/products');
                 const result = await response.json();
                 setData(result);
             } catch (error) {
@@ -61,7 +61,7 @@ export default function Home() {
         try {
             // TODO: API Call to CREATE data
 
-            const response = await fetch('http://localhost:4000/product', {
+            const response = await fetch('/api/product', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(newItem),
@@ -83,7 +83,7 @@ export default function Home() {
             try {
                 // TODO: API Call to DELETE data
 
-                await fetch(`http://localhost:4000/product/${id}`, {
+                await fetch(`/api/product/${id}`, {
                     method: 'DELETE',
                 });
                 setData(data.filter((item) => item.id !== id));
@@ -111,7 +111,7 @@ export default function Home() {
             const updatedFields = { ...editForm, price: parseFloat(editForm.price) };
 
             // TODO: API Call to UPDATE data
-            const response = await fetch(`http://localhost:4000/product/${id}`, {
+            const response = await fetch(`/api/product/${id}`, {
                 method: 'PUT', // or PATCH
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(updatedFields),

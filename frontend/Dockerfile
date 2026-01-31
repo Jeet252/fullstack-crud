@@ -14,6 +14,12 @@ RUN npm run build
 # Production stage
 FROM nginx:alpine AS runtime
 
+# Remove default nginx configuration
+RUN rm /etc/nginx/conf.d/default.conf
+
+# Copy custom nginx configuration
+COPY default.conf /etc/nginx/conf.d/default.conf
+
 WORKDIR /usr/share/nginx/html
 
 COPY --from=build /app/dist ./

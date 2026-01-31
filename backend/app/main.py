@@ -1,9 +1,15 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, APIRouter
 from fastapi.middleware.cors import CORSMiddleware
 from app.serverCode.fastapiTutorial.models import products,Product
 from app.tutorial.oopsTutorial import Tutorial
 
+
+
 app= FastAPI()
+router = APIRouter()
+
+# API Configuration
+
 
 # CORS Configuration
 app.add_middleware(
@@ -15,16 +21,16 @@ app.add_middleware(
 )
 
 
-@app.get("/")
+@router.get("/")
 def hello():
     return "Hello World"
 
-@app.get("/products")
+@router.get("/products")
 def getAllProducts():
     return products
 
 # Dynamic Routing
-@app.get("/product/{id}")
+@router.get("/product/{id}")
 def getProductById(id:int):
     for product in products:
         if product.id== id:
@@ -32,12 +38,12 @@ def getProductById(id:int):
     return "No Product found"
 
 
-@app.post("/product")
+@router.post("/product")
 def addProduct(product:Product):
     products.append(product)
     return products
 
-@app.put("/product/{id}")
+@router.put("/product/{id}")
 def updateProduct(id:int,product:Product):
     for x in range(len(products)):
         if products[x].id== id:
@@ -45,7 +51,7 @@ def updateProduct(id:int,product:Product):
             return product
     return "No Product found"
 
-@app.delete("/product/{id}")
+@router.delete("/product/{id}")
 def deleteProduct(id:int):
     for product in products:
         if product.id== id:
@@ -56,22 +62,25 @@ def deleteProduct(id:int):
 
 # OOPs Tutorial
 
-@app.get("/oppsTutorial")
+@router.get("/oppsTutorial")
 def oopsTutorial():
     tutorial=Tutorial()
     return tutorial.basicConcept()
 
-@app.get("/inhertance")
+@router.get("/inhertance")
 def inhertance():
     tutorial=Tutorial()
     return tutorial.inhertance()
 
-@app.get("/encapsulation")
+@router.get("/encapsulation")
 def encapsulation():
     tutorial=Tutorial()
     return tutorial.encapsulation()
 
-@app.get("/polymorphism")
+@router.get("/polymorphism")
 def polymorphism():
     tutorial=Tutorial()
     return tutorial.polymorphism()
+
+
+app.include_router(router, prefix="/api")
